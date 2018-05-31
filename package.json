@@ -1,0 +1,25 @@
+{
+  "name": "node-auth",
+  "version": "0.0.1",
+  "description": "Provides a library for setting up & verifying node credentials via JWT",
+  "author": "Michael Vezina",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "test index.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myantandco/node-auth.git"
+  },
+  "keywords": [
+    "node-auth"
+  ],
+  "bugs": {
+    "url": "https://github.com/myantandco/node-auth/issues"
+  },
+  "homepage": "https://github.com/myantandco/node-auth"
+}
