@@ -1,13 +1,17 @@
-import {loadConfig} from '../../../../config/index';
-import {createJwtAuthz} from '../../../middleware/jwt-authz';
-import {createRequest, createResponse} from 'node-mocks-http'
-import chai from 'chai';
-
-let assert = chai.assert;
-let config = loadConfig();
-let verifyJwt = createJwtAuthz({config});
+let {createMiddleware} = require('../lib/index');
+let {createRequest, createResponse} = require('node-mocks-http');
 let jwt = require('jsonwebtoken');
+let chai = require('chai');
+let assert = chai.assert;
 let _ = require('lodash');
+
+let testConfig = {
+    jwt:{
+        secret: 'abc123'
+    }
+};
+
+let verifyJwt = createMiddleware({config: testConfig});
 
 let payload = {
     "user": {
@@ -18,7 +22,7 @@ let payload = {
     "iat": 1496757187,
     "exp": 1600000000
 };
-let jwtToken = jwt.sign(payload, config.jwt.secret);
+let jwtToken = jwt.sign(payload, testConfig.jwt.secret);
 let validReqOpts;
 
 describe('integration::validate JWT', function () {

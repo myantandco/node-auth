@@ -1,0 +1,18 @@
+# Followed codefresh.yml format from myantandco/pilot
+
+version: '1.0'
+
+steps:
+  build:
+    type: build
+    image_name: myant/node-auth
+    tag: develop
+
+  run_tests:
+    type: composition
+    composition:
+      version: '2'
+    composition_candidates:
+      node-auth:
+        image: ${{build}}
+        command: npm test
