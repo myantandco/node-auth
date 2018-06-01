@@ -22,10 +22,11 @@ let payload = {
     "iat": 1496757187,
     "exp": 1600000000
 };
+
 let jwtToken = jwt.sign(payload, testConfig.jwt.secret);
 let validReqOpts;
 
-describe('integration::validate JWT', function () {
+describe('validate JWT', function () {
     beforeEach(function () {
         validReqOpts = {
             method: 'GET',
