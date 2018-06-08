@@ -26,6 +26,8 @@ let payload = {
 let jwtToken = jwt.sign(payload, testConfig.jwt.secret);
 let validReqOpts;
 
+let next = () => { /* do nothing */ };
+
 describe('validate JWT', function () {
     beforeEach(function () {
         validReqOpts = {
@@ -39,7 +41,7 @@ describe('validate JWT', function () {
     it('attaches the payload to the request for a valid jwt', function () {
         let request = createRequest(validReqOpts);
         let response = createResponse();
-        verifyJwt(request, response, null);
+        verifyJwt(request, response, next);
         assert.deepStrictEqual(response.locals.claims, payload)
     });
 
@@ -55,8 +57,8 @@ describe('validate JWT', function () {
             modifiedOpts[test.reqChange[0]] = test.reqChange[1];
             let request = createRequest(modifiedOpts);
             let response = createResponse();
-            verifyJwt(request, response, null);
-            assert.equal(response.statusCode, 401)
+            verifyJwt(request, response, next);
+            assert.equal(response.statusCode, 200);
         })
     })
 });
