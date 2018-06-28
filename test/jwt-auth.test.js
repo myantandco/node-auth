@@ -5,13 +5,9 @@ let chai = require('chai');
 let assert = chai.assert;
 let _ = require('lodash');
 
-let testConfig = {
-    jwt:{
-        secret: 'abc123'
-    }
-};
+let jwtSecret = 'abc123';
 
-let verifyJwt = createMiddleware({config: testConfig});
+let verifyJwt = createMiddleware({jwtSecret});
 
 let payload = {
     "user": {
@@ -23,7 +19,7 @@ let payload = {
     "exp": 1600000000
 };
 
-let jwtToken = jwt.sign(payload, testConfig.jwt.secret);
+let jwtToken = jwt.sign(payload, jwtSecret);
 let validReqOpts;
 
 let next = () => { /* do nothing */ };
