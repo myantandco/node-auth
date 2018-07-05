@@ -17,7 +17,7 @@ describe('module exports', async () => {
         assert.typeOf(module.ResourceActions, 'object');
 
         // Middleware
-        assert.typeOf(module.createMiddleware, 'function');
+        assert.typeOf(module.createJwtMiddleware, 'function');
 
         // Claims
         assert.typeOf(module.claims.NotAuthorized, 'function')
