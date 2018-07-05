@@ -1,5 +1,4 @@
 let chai = require('chai');
-let index = require('../lib/index');
 let assert = chai.assert;
 
 describe('module exports', async () => {
@@ -7,14 +6,25 @@ describe('module exports', async () => {
     /**
      * We want to ensure that the exported module has a consistent structure
      */
-    it('has a consistent exported object structure', async () => {
-        assert.typeOf(index, 'object');
+    it('has a consistent exported object structure', () => {
+        let module = require('../lib');
 
-        // Utilities
-        assert.typeOf(index.utils, 'object');
-        assert.typeOf(index.utils.isAdmin, 'function');
+        assert.typeOf(module, 'object');
+
+        // Enums
+        assert.typeOf(module.Roles, 'object');
+        assert.typeOf(module.Scopes, 'object');
+        assert.typeOf(module.ResourceActions, 'object');
 
         // Middleware
-        assert.typeOf(index.createMiddleware, 'function');
+        assert.typeOf(module.createJwtMiddleware, 'function');
+
+        // Claims
+        assert.typeOf(module.claims.NotAuthorized, 'function')
+        assert.typeOf(module.claims.IdentityClaim, 'function')
+        assert.typeOf(module.claims.GroupClaim, 'function')
+        assert.typeOf(module.claims.GrantClaim, 'function')
+        assert.typeOf(module.claims.UnknownClaim, 'function')
+        assert.typeOf(module.claims.claimFactory, 'function')
     });
 });

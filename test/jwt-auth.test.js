@@ -1,4 +1,4 @@
-let {createMiddleware} = require('../lib/index');
+let {createJwtMiddleware} = require('../lib/index');
 let {createRequest, createResponse} = require('node-mocks-http');
 let jwt = require('jsonwebtoken');
 let chai = require('chai');
@@ -7,7 +7,7 @@ let _ = require('lodash');
 
 let jwtSecret = 'abc123';
 
-let verifyJwt = createMiddleware({jwtSecret});
+let verifyJwt = createJwtMiddleware({jwtSecret});
 
 let payload = {
     "user": {
@@ -45,6 +45,7 @@ describe('validate JWT', function () {
         // {reqChange:["headers", {}]}, // TODO uncomment when authz fully on
         {reqChange: ["headers", {Authorization: "adsf"}]},
         {reqChange: ["headers", {Authorization: "Bearer BADTOKEN"}]},
+        {reqChange: ["headers", {Authorization: `Bearer ${jwt.sign({foo: 'bar'}, 'BADSECRET')}`}]},
     ];
 
     invalidRequests.forEach((test) => {
@@ -54,7 +55,7 @@ describe('validate JWT', function () {
             let request = createRequest(modifiedOpts);
             let response = createResponse();
             verifyJwt(request, response, next);
-            assert.equal(response.statusCode, 200);
+            assert.equal(response.statusCode, 401);
         })
     })
 });
