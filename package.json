@@ -1,6 +1,6 @@
 {
   "name": "node-auth",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Provides a library for setting up & verifying node credentials via JWT",
   "author": "Michael Vezina",
   "license": "ISC",
